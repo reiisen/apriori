@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil Analisa Apriori Warung Gilang</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #121212;
+            color: #f1f1f1;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #444;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #d9624a;
+            color: white;
+        }
+        .highlight {
+            background-color: #ffefc1;
+        }
+        .summary, .top-section {
+            padding: 15px;
+            background-color: #333;
+            border: 1px solid #444;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .top-section h2 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hasil Analisa Apriori Warung Gilang</h1>
+
+    <!-- Best Selling Combinations -->
+    <div class="summary">
+        <h2>Kombinasi Menu Terbaik</h2>
+
+        <h3>Lift Terbaik</h3>
+        <p><strong>Items A:</strong> {{ results['best_lift']['antecedents'] }}</p>
+        <p><strong>Item B:</strong> {{ results['best_lift']['consequents'] }}</p>
+        <p><strong>Support:</strong> {{ results['best_lift']['support'] }}</p>
+        <p><strong>Confidence:</strong> {{ results['best_lift']['confidence'] }}</p>
+        <p><strong>Lift:</strong> {{ results['best_lift']['lift'] }}</p>
+
+        <h3>Confidence Terbaik</h3>
+        <p><strong>Items A:</strong> {{ results['best_confidence']['antecedents'] }}</p>
+        <p><strong>Item B:</strong> {{ results['best_confidence']['consequents'] }}</p>
+        <p><strong>Support:</strong> {{ results['best_confidence']['support'] }}</p>
+        <p><strong>Confidence:</strong> {{ results['best_confidence']['confidence'] }}</p>
+        <p><strong>Lift:</strong> {{ results['best_confidence']['lift'] }}</p>
+
+        <h3>Support Terbaik</h3>
+        <p><strong>Items A:</strong> {{ results['best_support']['antecedents'] }}</p>
+        <p><strong>Item B:</strong> {{ results['best_support']['consequents'] }}</p>
+        <p><strong>Support:</strong> {{ results['best_support']['support'] }}</p>
+        <p><strong>Confidence:</strong> {{ results['best_support']['confidence'] }}</p>
+        <p><strong>Lift:</strong> {{ results['best_support']['lift'] }}</p>
+    </div>
+
+    <!-- Top 7 Rules by Support -->
+    <div class="top-section">
+        <h2>Top 10 Asosiasi Terbaik berdasarkan Support</h2>
+        <table>
+            <tr>
+                <th>Items A</th>
+                <th>Item B</th>
+                <th>Support</th>
+                <th>Confidence</th>
+                <th>Lift</th>
+            </tr>
+            {% for rule in results['top_support'] %}
+            <tr>
+                <td>{{ rule['antecedents'] }}</td>
+                <td>{{ rule['consequents'] }}</td>
+                <td>{{ rule['support'] }}</td>
+                <td>{{ rule['confidence'] }}</td>
+                <td>{{ rule['lift'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- Top 7 Rules by Confidence -->
+    <div class="top-section">
+        <h2>Top 10 Asosiasi Terbaik berdasarkan Confidence</h2>
+        <table>
+            <tr>
+                <th>Items A</th>
+                <th>Item B</th>
+                <th>Support</th>
+                <th>Confidence</th>
+                <th>Lift</th>
+            </tr>
+            {% for rule in results['top_confidence'] %}
+            <tr>
+                <td>{{ rule['antecedents'] }}</td>
+                <td>{{ rule['consequents'] }}</td>
+                <td>{{ rule['support'] }}</td>
+                <td>{{ rule['confidence'] }}</td>
+                <td>{{ rule['lift'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- Top 7 Rules by Lift -->
+    <div class="top-section">
+        <h2>Top 10 Asosiasi Terbaik berdasarkan Lift</h2>
+        <table>
+            <tr>
+                <th>Items A</th>
+                <th>Item B</th>
+                <th>Support</th>
+                <th>Confidence</th>
+                <th>Lift</th>
+            </tr>
+            {% for rule in results['top_lift'] %}
+            <tr>
+                <td>{{ rule['antecedents'] }}</td>
+                <td>{{ rule['consequents'] }}</td>
+                <td>{{ rule['support'] }}</td>
+                <td>{{ rule['confidence'] }}</td>
+                <td>{{ rule['lift'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- Full Table -->
+    <table>
+        <tr>
+            <th>Items A</th>
+            <th>Item B</th>
+            <th>Support</th>
+            <th>Confidence</th>
+            <th>Lift</th>
+        </tr>
+        {% for rule in results['rules'] %}
+        <tr>
+            <td>{{ rule['antecedents'] }}</td>
+            <td>{{ rule['consequents'] }}</td>
+            <td>{{ rule['support'] }}</td>
+            <td>{{ rule['confidence'] }}</td>
+            <td>{{ rule['lift'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
